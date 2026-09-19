@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BARÇA MATCH CENTER</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+    background:
+      linear-gradient(rgba(5,8,25,.88),rgba(5,8,25,.94)),
+      url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=2000&q=80")
+      center/cover fixed;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(7,7,25,.96);
+    border-bottom:2px solid #a50044;
+    padding:12px 20px;
+}
+
+.header-content{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo img{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+}
+
+.logo h1{
+    font-size:22px;
+}
+
+.logo span{
+    color:#edbb00;
+}
+
+nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    padding:9px 12px;
+    border-radius:20px;
+    background:#17172d;
+    font-size:13px;
+}
+
+nav a:hover{
+    background:#a50044;
+}
+
+.hero{
+    min-height:360px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+}
+
+.hero h2{
+    font-size:60px;
+    text-shadow:0 4px 20px black;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:20px;
+    color:#ddd;
+}
+
+.container{
+    width:min(1200px,94%);
+    margin:auto;
+}
+
+section{
+    margin:45px 0;
+    scroll-margin-top:100px;
+}
+
+.section-title{
+    font-size:30px;
+    margin-bottom:20px;
+    border-left:5px solid #edbb00;
+    padding-left:12px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.card{
+    background:rgba(18,18,42,.9);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+
+.card .big{
+    font-size:35px;
+    font-weight:bold;
+    color:#edbb00;
+}
+
+.card p{
+    color:#bbb;
+    margin-top:7px;
+}
+
+.match-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.match{
+    background:linear-gradient(145deg,#10102b,#171744);
+    border-radius:18px;
+    padding:20px;
+    border-top:4px solid #a50044;
+    text-align:center;
+}
+
+.match .competition{
+    color:#edbb00;
+    font-size:13px;
+    margin-bottom:12px;
+}
+
+.match .date{
+    color:#aaa;
+    font-size:13px;
+}
+
+.teams{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    gap:10px;
+    margin:18px 0;
+    font-weight:bold;
+}
+
+.score{
+    font-size:28px;
+    color:#edbb00;
+}
+
+.filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+button,select,input{
+    border:0;
+    border-radius:10px;
+    padding:11px 14px;
+    font-size:14px;
+}
+
+button{
+    cursor:pointer;
+    background:#a50044;
+    color:white;
+}
+
+button:hover{
+    background:#edbb00;
+    color:#111;
+}
+
+input,select{
+    background:white;
+    color:#111;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:15px;
+    background:rgba(15,15,40,.95);
+}
+
+th,td{
+    padding:12px 9px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+th{
+    background:#a50044;
+}
+
+tr:hover{
+    background:rgba(255,255,255,.05);
+}
+
+.first{
+    background:rgba(237,187,0,.15);
+    font-weight:bold;
+}
+
+.player-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.player{
+    background:rgba(17,17,42,.95);
+    border-radius:18px;
+    overflow:hidden;
+    text-align:center;
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.player img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    background:#111;
+}
+
+.player-info{
+    padding:14px;
+}
+
+.player-number{
+    color:#edbb00;
+    font-size:14px;
+}
+
+.player-name{
+    font-size:18px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.history-box{
+    background:rgba(12,12,35,.94);
+    border-radius:20px;
+    padding:20px;
+}
+
+.history-match{
+    display:grid;
+    grid-template-columns:130px 1fr 100px 150px;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:12px;
+    background:#171733;
+    border-left:4px solid #a50044;
+}
+
+.history-date{
+    color:#edbb00;
+    font-weight:bold;
+}
+
+.history-teams{
+    font-weight:bold;
+}
+
+.history-score{
+    font-size:21px;
+    text-align:center;
+}
+
+.history-comp{
+    color:#aaa;
+    text-align:right;
+    font-size:13px;
+}
+
+.upcoming{
+    border-left-color:#edbb00;
+}
+
+.edit-box{
+    background:rgba(15,15,40,.96);
+    padding:25px;
+    border-radius:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group label{
+    color:#ccc;
+}
+
+footer{
+    margin-top:60px;
+    padding:30px;
+    text-align:center;
+    background:#070719;
+    color:#aaa;
+}
+
+@media(max-width:900px){
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .match-grid{grid-template-columns:repeat(2,1fr)}
+    .player-grid{grid-template-columns:repeat(3,1fr)}
+    .history-match{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+    .history-comp{text-align:center}
+}
+
+@media(max-width:600px){
+    header{
+        position:relative;
+    }
+
+    .header-content{
+        flex-direction:column;
+    }
+
+    .hero h2{
+        font-size:40px;
+    }
+
+    .cards,
+    .match-grid,
+    .player-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    nav a{
+        font-size:11px;
+        padding:8px 9px;
+    }
+
+    table{
+        font-size:12px;
+    }
+
+    th,td{
+        padding:8px 4px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="header-content">
+
+<div class="logo">
+<img src="https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg">
+<div>
+<h1>BARÇA <span>MATCH CENTER</span></h1>
+<small>FC Barcelona 2026/27</small>
+</div>
+</div>
+
+<nav>
+<a href="#home">🏠 Accueil</a>
+<a href="#matches">⚽ Matchs</a>
+<a href="#history">📅 Histoire</a>
+<a href="#liga">🇪🇸 La Liga</a>
+<a href="#champions">🏆 Champions</a>
+<a href="#players">👥 Joueurs</a>
+<a href="#edit">✏️ Modifier</a>
+</nav>
+
+</div>
+</header>
+
+<main>
+
+<section id="home" class="hero">
+<div>
+<h2>VISCA BARÇA 🔵🔴</h2>
+<p>Bienvenue dans ton centre officiel Barça Match Center</p>
+</div>
+</section>
+
+<div class="container">
+
+<section>
+<h2 class="section-title">📊 Tableau de bord</h2>
+
+<div class="cards">
+
+<div class="card">
+<div class="big">18</div>
+<p>Points La Liga</p>
+</div>
+
+<div class="card">
+<div class="big">6</div>
+<p>Victoires</p>
+</div>
+
+<div class="card">
+<div class="big">28</div>
+<p>Buts marqués</p>
+</div>
+
+<div class="card">
+<div class="big">+22</div>
+<p>Différence de buts</p>
+</div>
+
+</div>
+</section>
+
+<section id="matches">
+
+<h2 class="section-title">⚽ Matchs</h2>
+
+<div class="filters">
+<button onclick="filterMatches('all')">Tous</button>
+<button onclick="filterMatches('liga')">La Liga</button>
+<button onclick="filterMatches('ucl')">Champions</button>
+<button onclick="filterMatches('upcoming')">À venir</button>
+</div>
+
+<div id="matchContainer" class="match-grid"></div>
+
+</section>
+
+
+<section id="history">
+
+<h2 class="section-title">📅 Histoire Barça — Saison 2026/27</h2>
+
+<div class="history-box">
+
+<div class="filters">
+<button onclick="showHistory('all')">Tout</button>
+<button onclick="showHistory('played')">Résultats</button>
+<button onclick="showHistory('liga')">La Liga</button>
+<button onclick="showHistory('ucl')">Champions</button>
+<button onclick="showHistory('super')">Supercopa</button>
+</div>
+
+<div id="historyContainer"></div>
+
+</div>
+
+</section>
+
+
+<section id="liga">
+
+<h2 class="section-title">🇪🇸 Classement La Liga</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>#</th>
+<th>Équipe</th>
+<th>Pts</th>
+<th>MJ</th>
+<th>G</th>
+<th>N</th>
+<th>P</th>
+<th>BP</th>
+<th>BC</th>
+<th>Diff</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr class="first">
+<td>1</td>
+<td>🔵🔴 FC Barcelona</td>
+<td>18</td>
+<td>6</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+<td>28</td>
+<td>6</td>
+<td>+22</td>
+</tr>
+
+<tr><td>2</td><td>Real Madrid</td><td>15</td><td>6</td><td>5</td><td>0</td><td>1</td><td>17</td><td>6</td><td>+11</td></tr>
+<tr><td>3</td><td>Atlético Madrid</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>4</td><td>Villarreal</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>5</td><td>Athletic Club</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>6</td><td>Real Betis</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>7</td><td>Rayo Vallecano</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>8</td><td>Real Sociedad</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>9</td><td>Valencia CF</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>10</td><td>Sevilla</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+
+</tbody>
+</table>
+
+<p style="margin-top:12px;color:#aaa">
+Dernière mise à jour : 17 septembre 2026 — classement officiel actuellement disponible.
+</p>
+
+</section>
+
+
+<section id="champions">
+
+<h2 class="section-title">🏆 Champions League</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>#</th>
+<th>Équipe</th>
+<th>Pts</th>
+<th>MJ</th>
+<th>G</th>
+<th>N</th>
+<th>P</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr class="first">
+<td>—</td>
+<td>🔵🔴 FC Barcelona</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+
+<tr><td>—</td><td>Paris Saint-Germain</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>—</td><td>Manchester City</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>—</td><td>Galatasaray</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>—</td><td>Aston Villa</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>—</td><td>Sabah FC</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+
+</tbody>
+</table>
+
+</section>
+
+
+<section id="players">
+
+<h2 class="section-title">👥 Équipe 2026/27</h2>
+
+<div class="player-grid" id="playerContainer"></div>
+
+</section>
+
+
+<section id="edit">
+
+<h2 class="section-title">✏️ Modifier un match</h2>
+
+<div class="edit-box">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Équipe 1</label>
+<input id="team1" placeholder="FC Barcelona">
+</div>
+
+<div class="form-group">
+<label>Équipe 2</label>
+<input id="team2" placeholder="Real Madrid">
+</div>
+
+<div class="form-group">
+<label>Score</label>
+<input id="score" placeholder="2 - 1">
+</div>
+
+<div class="form-group">
+<label>Date / Heure</label>
+<input id="date" placeholder="25/10/2026 - 21:00">
+</div>
+
+</div>
+
+<br>
+
+<button onclick="saveMatch()">💾 Sauvegarder</button>
+<button onclick="clearMatch()">🗑️ Effacer</button>
+
+<p id="saveMessage" style="margin-top:15px;color:#edbb00"></p>
+
+</div>
+
+</section>
+
+</div>
+
+</main>
+
+<footer>
+🔵🔴 BARÇA MATCH CENTER — Visca Barça!  
+<br><br>
+© 2026 — Fan website
+</footer>
+
+
+<script>
+
+const matches = [
+
+/* RESULTS */
+
+{date:"08/08/2026",home:"Udinese",away:"FC Barcelona",score:"1 - 0",comp:"Amical",status:"played"},
+{date:"08/08/2026",home:"FC Barcelona",away:"Nottingham Forest",score:"1 - 0",comp:"Amical",status:"played"},
+{date:"16/08/2026",home:"FC Basel",away:"FC Barcelona",score:"2 - 5",comp:"Amical",status:"played"},
+{date:"19/08/2026",home:"FC Barcelona",away:"Al Ahly",score:"2 - 1",comp:"Amical",status:"played"},
+{date:"23/08/2026",home:"Elche",away:"FC Barcelona",score:"0 - 5",comp:"La Liga",status:"played"},
+{date:"27/08/2026",home:"FC Barcelona",away:"Athletic Club",score:"2 - 0",comp:"La Liga",status:"played"},
+{date:"31/08/2026",home:"FC Barcelona",away:"Rayo Vallecano",score:"5 - 2",comp:"La Liga",status:"played"},
+{date:"06/09/2026",home:"Valencia",away:"FC Barcelona",score:"0 - 5",comp:"La Liga",status:"played"},
+{date:"09/09/2026",home:"FC Barcelona",away:"Feyenoord",score:"5 - 1",comp:"Champions League",status:"played"},
+{date:"13/09/2026",home:"Levante",away:"FC Barcelona",score:"2 - 4",comp:"La Liga",status:"played"},
+{date:"16/09/2026",home:"FC Barcelona",away:"Racing de Santander",score:"7 - 2",comp:"La Liga",status:"played"},
+
+/* UPCOMING */
+
+{date:"19/09/2026 - 21:00",home:"Sevilla",away:"FC Barcelona",score:"À venir",comp:"La Liga",status:"upcoming"},
+{date:"10/10/2026 - 18:30",home:"FC Barcelona",away:"Getafe",score:"À venir",comp:"La Liga",status:"upcoming"},
+{date:"13/10/2026 - 21:00",home:"Galatasaray",away:"FC Barcelona",score:"À venir",comp:"Champions League",status:"upcoming"},
+{date:"17/10/2026 - 18:30",home:"Real Betis",away:"FC Barcelona",score:"À venir",comp:"La Liga",status:"upcoming"},
+{date:"20/10/2026 - 21:00",home:"PSG",away:"FC Barcelona",score:"À venir",comp:"Champions League",status:"upcoming"},
+{date:"25/10/2026",home:"FC Barcelona",away:"Real Madrid",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"01/11/2026",home:"FC Barcelona",away:"Alavés",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"03/11/2026 - 21:00",home:"FC Barcelona",away:"Aston Villa",score:"À venir",comp:"Champions League",status:"upcoming"},
+{date:"08/11/2026",home:"Atlético Madrid",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"22/11/2026",home:"FC Barcelona",away:"Villarreal",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"25/11/2026 - 18:45",home:"Sabah",away:"FC Barcelona",score:"À venir",comp:"Champions League",status:"upcoming"},
+{date:"29/11/2026",home:"Deportivo de La Coruña",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"06/12/2026",home:"FC Barcelona",away:"Celta de Vigo",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"08/12/2026 - 21:00",home:"FC Barcelona",away:"Manchester City",score:"À venir",comp:"Champions League",status:"upcoming"},
+{date:"13/12/2026",home:"Málaga",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"20/12/2026",home:"FC Barcelona",away:"Real Sociedad",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"03/01/2027",home:"Espanyol",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"10/01/2027",home:"Osasuna",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"17/01/2027",home:"FC Barcelona",away:"Elche",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"20/01/2027 - 21:00",home:"Sporting Lisbon",away:"FC Barcelona",score:"À venir",comp:"Champions League",status:"upcoming"},
+{date:"24/01/2027",home:"Alavés",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"27/01/2027 - 21:00",home:"FC Barcelona",away:"Como 1907",score:"À venir",comp:"Champions League",status:"upcoming"},
+{date:"31/01/2027",home:"FC Barcelona",away:"Valencia CF",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"02/02/2027 - 20:00",home:"FC Barcelona",away:"Atlético Madrid",score:"À venir",comp:"Supercopa",status:"upcoming"},
+{date:"07/02/2027",home:"FC Barcelona",away:"Atlético Madrid",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"14/02/2027",home:"Villarreal",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"21/02/2027",home:"FC Barcelona",away:"Levante",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"28/02/2027",home:"Athletic Club",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"07/03/2027",home:"FC Barcelona",away:"Real Betis",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"14/03/2027",home:"FC Barcelona",away:"Deportivo de La Coruña",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"21/03/2027",home:"Rayo Vallecano",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"04/04/2027",home:"FC Barcelona",away:"Sevilla",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"11/04/2027",home:"Racing de Santander",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"18/04/2027",home:"FC Barcelona",away:"Espanyol",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"21/04/2027",home:"Celta de Vigo",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"02/05/2027",home:"FC Barcelona",away:"Osasuna",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"09/05/2027",home:"Real Madrid",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"16/05/2027",home:"Real Sociedad",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"23/05/2027",home:"FC Barcelona",away:"Málaga",score:"TBA",comp:"La Liga",status:"upcoming"},
+{date:"30/05/2027",home:"Getafe",away:"FC Barcelona",score:"TBA",comp:"La Liga",status:"upcoming"}
+
+];
+
+
+function renderMatches(list){
+
+const container=document.getElementById("matchContainer");
+
+container.innerHTML=list.map(m=>`
+
+<div class="match">
+
+<div class="competition">${m.comp}</div>
+
+<div class="date">${m.date}</div>
+
+<div class="teams">
+<span>${m.home}</span>
+<span class="score">${m.score}</span>
+<span>${m.away}</span>
+</div>
+
+${m.status==="upcoming"
+?'<small style="color:#edbb00">⏳ À venir</small>'
+:'<small style="color:#55dd88">✓ Terminé</small>'}
+
+</div>
+
+`).join("");
+
+}
+
+
+function filterMatches(type){
+
+let result=matches;
+
+if(type==="liga")
+result=matches.filter(m=>m.comp==="La Liga");
+
+if(type==="ucl")
+result=matches.filter(m=>m.comp==="Champions League");
+
+if(type==="upcoming")
+result=matches.filter(m=>m.status==="upcoming");
+
+renderMatches(result);
+
+}
+
+
+function showHistory(type){
+
+let result=matches;
+
+if(type==="played")
+result=matches.filter(m=>m.status==="played");
+
+if(type==="liga")
+result=matches.filter(m=>m.comp==="La Liga");
+
+if(type==="ucl")
+result=matches.filter(m=>m.comp==="Champions League");
+
+if(type==="super")
+result=matches.filter(m=>m.comp==="Supercopa");
+
+document.getElementById("historyContainer").innerHTML=result.map(m=>`
+
+<div class="history-match ${m.status==="upcoming"?'upcoming':''}">
+
+<div class="history-date">${m.date}</div>
+
+<div class="history-teams">
+${m.home} — ${m.away}
+</div>
+
+<div class="history-score">
+${m.score}
+</div>
+
+<div class="history-comp">
+${m.comp}
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+const players=[
+
+["1","Joan Garcia"],
+["2","João Cancelo"],
+["3","Alejandro Balde"],
+["4","Brian Fariñas"],
+["5","Pau Cubarsí"],
+["6","Gavi"],
+["7","Fermín López"],
+["8","Pedri"],
+["9","Gabriel Jesus"],
+["10","Lamine Yamal"],
+["11","Raphinha"],
+["12","Xavi Espart"],
+["13","Szczęsny"],
+["14","Adeyemi"],
+["15","Christensen"],
+["16","Rodrigo"],
+["17","Anthony Gordon"],
+["18","Gerard Martín"],
+["19","Roony Bardghji"],
+["20","Dani Olmo"],
+["21","Frenkie de Jong"],
+["22","Marc Bernal"],
+["23","Jules Kounde"],
+["24","Eric Garcia"],
+["25","Dominik Livaković"],
+["27","Jesse Bisiwu"],
+["29","Hamza Abdelkarim"]
+
+];
+
+
+document.getElementById("playerContainer").innerHTML=
+
+players.map(p=>`
+
+<div class="player">
+
+<img
+src="https://placehold.co/600x600/11152d/ffffff?text=${encodeURIComponent(p[1])}"
+alt="${p[1]}"
+>
+
+<div class="player-info">
+
+<div class="player-number">#${p[0]}</div>
+
+<div class="player-name">${p[1]}</div>
+
+</div>
+
+</div>
+
+`).join("");
+
+
+function saveMatch(){
+
+const data={
+team1:document.getElementById("team1").value,
+team2:document.getElementById("team2").value,
+score:document.getElementById("score").value,
+date:document.getElementById("date").value
+};
+
+localStorage.setItem("barcaCustomMatch",JSON.stringify(data));
+
+document.getElementById("saveMessage").innerText=
+"✅ Match sauvegardé sur cet ordinateur !";
+
+}
+
+
+function clearMatch(){
+
+localStorage.removeItem("barcaCustomMatch");
+
+document.getElementById("team1").value="";
+document.getElementById("team2").value="";
+document.getElementById("score").value="";
+document.getElementById("date").value="";
+
+document.getElementById("saveMessage").innerText=
+"🗑️ Match supprimé.";
+
+}
+
+
+window.onload=function(){
+
+renderMatches(matches);
+
+showHistory("all");
+
+const saved=localStorage.getItem("barcaCustomMatch");
+
+if(saved){
+
+const d=JSON.parse(saved);
+
+document.getElementById("team1").value=d.team1||"";
+document.getElementById("team2").value=d.team2||"";
+document.getElementById("score").value=d.score||"";
+document.getElementById("date").value=d.date||"";
+
+}
+
+};
+
+</script>
+
+</body>
+</html>
